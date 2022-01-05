@@ -1,0 +1,9 @@
+default['apache']['ip'] = '127.0.0.1'
+default['apache']['port'] = 80
+default['apache']['document_root'] = '/var/www'
+default['mysql']['ip'] = '127.0.0.1'
+default['mysql']['port'] = 3306
+default['mysql']['database'] = 'wordpress'
+default['mysql']['user'] = 'wordpress'
+default['mysql']['password'] = 'wordpress'
+default['wordpress']['external_ip'] = '192.168.33.40'

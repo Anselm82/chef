@@ -65,14 +65,13 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
    config.vm.provision "shell", inline: <<-SHELL
      apt-get update
-     #curl -L https://www.opscode.com/chef/install.sh | sudo bash
-	 curl -L https://chef.io/chef/install.sh | sudo bash
+     curl -L https://chef.io/chef/install.sh | sudo bash
    SHELL
 
    # IMPORTANTE => https://github.com/hashicorp/vagrant/issues/12337
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = "chef-repo/cookbooks"
-    chef.add_recipe "apache"
+    chef.add_recipe "wordpress"
     chef.arguments = "--chef-license accept"
     chef.install = false
   end
