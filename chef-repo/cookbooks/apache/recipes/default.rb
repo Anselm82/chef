@@ -13,24 +13,19 @@ apt_update 'Update the apt cache daily' do
   file '/etc/apache2/sites-enabled/000-default.conf' do
     action :delete
   end
-  
-  template '/etc/apache2/sites-available/vagrant.conf' do
-    source 'virtual-hosts.conf.erb'
-    notifies :restart, resources(:service => "apache2")
-  end
-  
-  link '/etc/apache2/sites-enabled/vagrant.conf' do
-    to '/etc/apache2/sites-available/vagrant.conf'
-    notifies :restart, resources(:service => "apache2")
-  end
-  
-  cookbook_file "#{node['apache']['document_root']}/index.html" do
-    source 'index.html'
-    only_if do
-      File.exist?('/etc/apache2/sites-enabled/vagrant.conf')
-    end
-  end
 
- include_recipe '::facts'
+  remote_file "Copy service file" do 
+    path "/etc/apache2/sites-available/wordpress.conf" 
+    source "file:///vagrant/wordpress.conf"
+  end
+  
+  link '/etc/apache2/sites-enabled/wordpress.conf' do
+    to '/etc/apache2/sites-available/wordpress.conf'
+    notifies :restart, resources(:service => "apache2")
+  end
+  
+
+include_recipe '::wordpress'
+include_recipe '::facts'
 
   
