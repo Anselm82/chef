@@ -72,7 +72,7 @@ Vagrant.configure("2") do |config|
    # IMPORTANTE => https://github.com/hashicorp/vagrant/issues/12337
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = "chef-repo/cookbooks"
-    chef.add_recipe "apache"
+    chef.add_recipe "wordpress"
     chef.arguments = "--chef-license accept"
     chef.install = false
   end
