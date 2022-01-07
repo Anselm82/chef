@@ -1,4 +1,4 @@
-name 'apache'
+name 'wordpress'
 maintainer 'Adrián Pérez, Beatriz Serrano & Juan José Hernández'
 maintainer_email 'juanjose.hernandez886@unir.net'
 license 'All Rights Reserved'
@@ -18,4 +18,3 @@ issues_url 'https://github.com/Anselm82/chef/issues'
 # a Supermarket.
 #
 source_url 'https://github.com/Anselm82/chef'
-depends 'mysql'

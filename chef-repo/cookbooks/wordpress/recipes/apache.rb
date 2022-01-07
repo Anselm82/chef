@@ -5,6 +5,7 @@ apt_update 'Update the apt cache daily' do
   
   package 'apache2'
   package 'php'
+  package 'php-mysql'
   
   service 'apache2' do
     supports :status => true
