@@ -20,16 +20,16 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', '<%= default["mysql"]["database"] %>' );
+define( 'DB_NAME', '<%= node["mysql"]["database"] %>' );
 
 /** MySQL database username */
-define( 'DB_USER', '<%= default["mysql"]["user"] %>' );
+define( 'DB_USER', '<%= node["mysql"]["user"] %>' );
 
 /** MySQL database password */
-define( 'DB_PASSWORD', '<%= default["mysql"]["password"] %>' );
+define( 'DB_PASSWORD', '<%= node["mysql"]["password"] %>' );
 
 /** MySQL hostname */
-define( 'DB_HOST', '<%= default["mysql"]["ip"] %>:<%= default["mysql"]["port"] %>' );
+define( 'DB_HOST', '<%= node["mysql"]["ip"] %>:<%= node["mysql"]["port"] %>' );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -74,7 +74,8 @@ $table_prefix = 'wp_';
 define( 'WP_DEBUG', false );
 /* Add any custom values between this line and the "stop editing" line. */
 
-
+define( 'WP_HOME', 'http://<%= node["wordpress"]["external_ip"] %>:<%= node["wordpress"]["port"] %>' );
+define( 'WP_SITEURL', 'http://<%= node["wordpress"]["external_ip"] %>:<%= node["wordpress"]["port"] %>' );
 
 /* That's all, stop editing! Happy publishing. */
 

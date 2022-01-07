@@ -1,7 +1,7 @@
 require 'serverspec/spec_helper'
 
 #Testing apache port is listening
-describe port(default['apache']['port']), :skip do
+describe port(node['apache']['port']), :skip do
     it { should be_listening }
 end
 

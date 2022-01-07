@@ -31,7 +31,7 @@ nice            = 0
 user            = mysql
 pid-file        = /var/run/mysqld/mysqld.pid
 socket          = /var/run/mysqld/mysqld.sock
-port            = <%= default["mysql"]["port"] %>
+port            = <%= node["mysql"]["port"] %>
 basedir         = /usr
 datadir         = /var/lib/mysql
 tmpdir          = /tmp
@@ -40,7 +40,7 @@ skip-external-locking
 #
 # Instead of skip-networking the default is now to listen only on
 # localhost which is more compatible and is not less secure.
-bind-address            = <%= @mysql_address %>
+bind-address            = <%= node["mysql"]["ip"] %>
 #
 # * Fine Tuning
 #
