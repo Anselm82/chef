@@ -22,7 +22,7 @@ end
 
 execute "change owner and permissions" do
   command "sudo chown www-data: -R #{node['apache']['document_root']}"
-  notifies :restart, resources(:service => "apache2")
+  notifies :reload, resources(:service => "apache2"), :immediate
 end
 
 template "#{Chef::Config[:file_cache_path]}/post.sql" do
@@ -30,12 +30,9 @@ template "#{Chef::Config[:file_cache_path]}/post.sql" do
 end
 
 execute 'configure wordpress' do
-  command "curl http://#{node["apache"]["ip"]}:#{node["apache"]["port"]}/wp-admin/install.php?step=2 --data-urlencode \"weblog_title=#{node['wordpress']['title']}\" --data-urlencode \"user_name=#{node['wordpress']['username']}\" --data-urlencode \"admin_email=#{node['wordpress']['email']}\" --data-urlencode \"admin_password=#{node['wordpress']['password']}\" --data-urlencode \"admin_password2=#{node['wordpress']['password']}\" --data-urlencode \"pw_weak=1\" && sudo mysql < #{Chef::Config[:file_cache_path]}/post.sql"
-  #notifies :run, resources(:execute => "update post"), :delayed
+  command 'curl http://192.168.33.40/wp-admin/install.php?step=2 --data-urlencode "weblog_title=DevOps" --data-urlencode "user_name=wordpress" --data-urlencode "admin_email=wordpress@unir.net" --data-urlencode "admin_password=wordpress" --data-urlencode "admin_password2=wordpress" --data-urlencode "pw_weak=1"'
 end
 
-#execute "update post" do
- # command "sudo mysql < #{Chef::Config[:file_cache_path]}/post.sql"
-  #action :nothing
-  #notifies :restart, resources(:service => "apache2")
-#end
+execute "update post" do
+  command "sudo mysql < #{Chef::Config[:file_cache_path]}/post.sql"
+end
