@@ -20,7 +20,7 @@ end
 control 'Listening on 80' do
   impact 1
   desc 'Apache should be listening on port 80'
-  describe http('http://127.0.0.1:80') do
+  describe http('http://192.168.33.40:80') do
     its('body') { should cmp /Apache/ }
   end
 end

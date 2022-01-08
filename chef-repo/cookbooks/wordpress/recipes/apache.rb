@@ -1,5 +1,13 @@
-package 'apache2'
-package 'libapache2-mod-php'
+package 'Install Apache' do
+  case node[:platform]
+  when 'redhat', 'centos'
+    package_name 'httpd'
+  when 'ubuntu', 'debian'
+    package_name 'apache2'
+    package 'libapache2-mod-php'
+  end
+end
+
 
 service 'apache2' do
   supports :status => true

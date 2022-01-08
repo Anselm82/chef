@@ -20,7 +20,7 @@ end
 control 'Listening on 3306' do
   impact 1
   desc 'Mysql should be listening on port 3306'
-  describe http('http://127.0.0.1:80') do
+  describe ping('mysql://192.168.33.40:3306') do
     its('body') { should cmp /Apache/ }
   end
 end
