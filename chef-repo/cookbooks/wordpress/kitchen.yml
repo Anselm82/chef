@@ -3,7 +3,7 @@ driver:
   name: vagrant
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
 
 platforms:
   - name: ubuntu-18.04
@@ -11,6 +11,9 @@ platforms:
 
 suites:
   - name: default
+    verifier:
+      inspec_tests:
+        - test/integration/default
     run_list:
     - recipe[wordpress::default]
     attributes:

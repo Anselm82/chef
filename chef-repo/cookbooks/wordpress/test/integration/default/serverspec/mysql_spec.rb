@@ -1,5 +1,4 @@
-control 'Mysql Service' do
-  impact 1
+describe 'Mysql Service' do
   desc 'Mysql is running from chef'
   case os[:family]
   when 'debian', 'suse'
@@ -17,16 +16,14 @@ control 'Mysql Service' do
   end
 end
   
-control 'Listening on 3306' do
-  impact 1
+describe 'Listening on 3306' do
   desc 'Mysql should be listening on port 3306'
   describe ping('mysql://192.168.33.40:3306') do
     its('body') { should cmp /Apache/ }
   end
 end
 
-control 'mysql_database' do
-  impact 1.0
+describe 'mysql_database' do
   title 'test creation and removal of databases'
   sql = mysql_session('wordpress', 'wordpress')
   describe sql.query('SHOW DATABASES') do
@@ -34,8 +31,7 @@ control 'mysql_database' do
   end
 end
 
-control 'mysql_user' do
-  impact 1.0
+describe 'mysql_user' do
   title 'Check user is pressent'
   sql = mysql_session('wordpress', 'wordpress')
   describe sql.query('SELECT User, Host FROM mysql.user') do

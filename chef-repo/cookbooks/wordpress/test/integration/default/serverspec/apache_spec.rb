@@ -1,5 +1,4 @@
-control 'Apache Service' do
-  impact 1
+describe 'Apache Service' do
   desc 'Apache2 is running from chef'
   case os[:family]
   when 'debian', 'suse'
@@ -17,8 +16,7 @@ control 'Apache Service' do
   end
 end
 
-control 'Listening on 80' do
-  impact 1
+describe 'Listening on 80' do
   desc 'Apache should be listening on port 80'
   describe http('http://192.168.33.40:80') do
     its('body') { should cmp /Apache/ }
