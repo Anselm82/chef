@@ -1,6 +1,8 @@
 ---
 driver:
   name: vagrant
+  network:
+    - ["private_network", {ip: "192.168.33.40"}]
 
 provisioner:
   name: chef_zero
@@ -9,11 +11,14 @@ platforms:
   - name: ubuntu-18.04
   - name: centos-8
 
+verifier:
+  name: inspec
+
 suites:
   - name: default
     verifier:
       inspec_tests:
         - test/integration/default
     run_list:
-    - recipe[wordpress::default]
+      - recipe[wordpress::default]
     attributes:

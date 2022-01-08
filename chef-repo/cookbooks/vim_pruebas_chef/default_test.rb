@@ -1,8 +1,4 @@
-require 'rspec'
-require 'pathname' 
-
-set :backend, :exec
-set :path, '/bin:/usr/local/bin:$PATH'
+require 'serverspec/spec_helper'
 
 #Testing apache port is listening
 describe port(node['apache']['port']), :skip do

@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe 'Mysql Service' do
   case os[:family]
   when 'debian', 'suse'
@@ -12,12 +14,6 @@ describe 'Mysql Service' do
       it { should be_enabled }
       it { should be_running }
     end
-  end
-end
-  
-describe 'Listening on 3306' do
-  describe ping('mysql://192.168.33.40:3306') do
-    its('body') { should cmp /Apache/ }
   end
 end
 
