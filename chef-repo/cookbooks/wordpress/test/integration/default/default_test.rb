@@ -1,22 +1,45 @@
-require 'rspec'
-require 'pathname' 
+# InSpec test for recipe default
 
-set :backend, :exec
-set :path, '/bin:/usr/local/bin:$PATH'
-
-#Testing apache port is listening
-describe port(node['apache']['port']), :skip do
-    it { should be_listening }
+# The InSpec reference, with examples and extensive documentation, can be
+# found at https://www.inspec.io/docs/reference/resources/
+  
+describe port(80) do
+  it { should be_listening }
 end
 
-#apache tests
-#require 'serverspec/apache_spec'
+describe service('apache2') do
+  it { should be_installed }
+  it { should be_enabled }
+  it { should be_running }
+end
 
-#mysql tests
-#require 'serverspec/mysql_spec'
+describe command('curl http://localhost') do
+  its('stdout') { should match /.*<h1 class="site-title">DevOps<\/h1>.*/ } 
+end
 
-#php tests
-#require 'serverspec/php_spec'
+describe port(3306) do
+  it { should be_listening }
+end
 
-#wordpress tests
-#require 'serverspec/wordpress_spec'
+describe service('mysql') do
+  it { should be_installed }
+  it { should be_enabled }
+  it { should be_running }
+end
+
+sql = mysql_session('wordpress', 'wordpress')
+describe sql.query('SHOW DATABASES') do
+  its(:stdout) { should match(/wordpress/) }
+end
+
+sql = mysql_session('wordpress', 'wordpress')
+describe sql.query('USE wordpress; SHOW TABLES;') do
+  its(:stdout) { should match(/wp_posts/) }
+end
+
+describe http('192.168.33.40') do
+  its('status') { should eq 200 }
+  its('body') { should match(/Juan José Hernández/) }
+  its('body') { should match(/Adrián Pérez/) }
+  its('body') { should match(/Beatriz Serrano/) }
+end

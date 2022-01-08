@@ -9,7 +9,7 @@ provisioner:
 
 platforms:
   - name: ubuntu-18.04
-  - name: centos-8
+  - name: centos-7
 
 verifier:
   name: inspec

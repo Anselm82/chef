@@ -1,28 +1,39 @@
+service_name = 'apache2'
+user_and_group = "www-data"
+document_root = node['apache']['document_root']
+
+case node[:platform]
+when 'redhat', 'centos'
+  service_name = 'httpd'
+  user_and_group = "apache"
+  document_root = '/var/www/html'
+end
+
 remote_file "#{Chef::Config[:file_cache_path]}/latest.tar.gz" do
   source "http://wordpress.org/latest.tar.gz"
   mode "0644"
 end
 
-directory "#{node['apache']['document_root']}/wordpress" do
-  owner "www-data"
-  group "www-data"
+directory "#{document_root}/wordpress" do
+  owner user_and_group
+  group user_and_group
   mode "0755"
   action :create
   recursive true
 end
 
 execute "untar wordpress" do
-  cwd "#{node['apache']['document_root']}/wordpress"
+  cwd "#{document_root}/wordpress"
   command "tar --strip-components 1 -xzf #{Chef::Config[:file_cache_path]}/latest.tar.gz"
 end
 
-template "#{node['apache']['document_root']}/wordpress/wp-config.php" do
+template "#{document_root}/wordpress/wp-config.php" do
   source 'wordpress/wp-config.php'
 end
 
 execute "change owner and permissions" do
-  command "sudo chown www-data: -R #{node['apache']['document_root']}"
-  notifies :reload, resources(:service => "apache2"), :immediate
+  command "sudo chown #{user_and_group}: -R #{document_root}"
+  notifies :reload, resources(:service => service_name), :immediate
 end
 
 template "#{Chef::Config[:file_cache_path]}/post.sql" do

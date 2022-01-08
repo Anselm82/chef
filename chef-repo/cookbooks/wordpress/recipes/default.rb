@@ -3,9 +3,9 @@ apt_update 'Update the apt cache daily' do
   action :periodic
 end
 
-package "virtualbox-guest-additions-iso"
 
-include_recipe '::apache'
+include_recipe '::apache' if node[:platform] == "ubuntu"
+include_recipe '::httpd' if node[:platform] == "centos"
 include_recipe '::mysql'
 include_recipe '::php'
 include_recipe '::wordpress'
