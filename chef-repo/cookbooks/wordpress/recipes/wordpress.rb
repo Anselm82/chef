@@ -24,7 +24,7 @@ directory '/srv/www/' do
 
     execute 'a2ensite wordpress' do
       command 'a2ensite wordpress' 
-      notifies :reload, resources(:service => "apache2"), :immediate
+      notifies :restart, resources(:service => "apache2"), :immediate
     end
 
   when 'centos'
@@ -55,10 +55,10 @@ directory '/srv/www/' do
   case node['platform']
   when 'ubuntu'
     execute "update post" do
-      command "sudo mysql -u root --password='wordpress' < /vagrant/post.sql"
+      command "sudo mysql -u root < /vagrant/post.sql"
     end
   when 'centos'
     execute "update post" do
-      command "sudo mysql -u root --password='wordpress' < /vagrant/post.sql"
+      command "sudo mysql -u root < /vagrant/post.sql"
     end
   end
