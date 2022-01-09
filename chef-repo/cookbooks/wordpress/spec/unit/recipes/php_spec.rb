@@ -5,7 +5,7 @@ describe 'wordpress::default' do
 
   context 'install php with default properties' do
     it 'php package installed' do
-        expect(chef_run).to install_package 'php'
+        expect(chef_run).to install_package('php')
     end
   end
   context 'install php with default properties' do

@@ -12,13 +12,13 @@ describe 'wordpress::default' do
 
   context 'install apache package' do
     it 'apache2 package installed' do
-      expect(chef_run).to install_package 'apache2'
+      expect(chef_run).to install_package('apache2')
     end
   end
 
   context 'librery apache php package' do
     it 'apache2 php library package installed' do
-      expect(chef_run).to install_package 'libapache2-mod-php'
+      expect(chef_run).to install_package('libapache2-mod-php')
     end
   end
 
@@ -50,13 +50,13 @@ describe 'wordpress::default' do
 
 end
 
-describe 'wordpress::default' do
-  platform 'centos'
+#describe 'wordpress::default' do
+#  platform 'centos'
 
-  context 'install httpd package' do
-    it 'httpd package installed' do
-      expect(chef_run).to install_package 'httpd'
-    end
-  end
+#  context 'install httpd package' do
+#    it 'httpd package installed' do
+#      expect(chef_run).to install_package 'httpd'
+#    end
+#  end
   
-end
+#end
