@@ -1,10 +1,24 @@
 describe 'wordpress::default' do
   platform 'ubuntu'
 
-  context 'copia post.sql template' do
-    it 'create copia post.sql wordpress template' do  
+  context 'create directory wordpress' do
+    it 'creates directory wordpress' do
+      expect(chef_run).to create_directory('/var/www/wordpress')
+    end
+  end
+
+  context 'copia wp-config.php template' do
+    it 'create wp-config.php wordpress template' do  
       expect(chef_run).to create_template("#{Chef::Config[:file_cache_path]}/post.sql").with(
         :source => 'wordpress/post.sql'
+      )
+    end
+  end
+
+  context 'copia post.sql template' do
+    it 'create copia post.sql wordpress template' do  
+      expect(chef_run).to create_template("/var/www/wordpress/wp-config.php").with(
+        :source => 'wordpress/wp-config.php'
       )
     end
   end
@@ -28,7 +42,7 @@ describe 'wordpress::default' do
   context 'execute untar wordpress' do
     it 'execute untar wordpress' do
       expect(chef_run).to run_execute('untar wordpress').with(
-        :cwd => "/var/www/wordpress", #falla meter variable #{document_root}/wordpress
+        :cwd => "/var/www/wordpress",
         :command => "tar --strip-components 1 -xzf #{Chef::Config[:file_cache_path]}/latest.tar.gz"
       )
     end

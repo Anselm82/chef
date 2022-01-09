@@ -38,13 +38,17 @@ describe 'wordpress::default' do
 
   context 'worpress conf link' do
     it 'creates link wordpress conf an other dir' do
-      expect(chef_run).to create_link('/etc/apache2/sites-enabled/wordpress.conf')
+      expect(chef_run).to create_link('/etc/apache2/sites-enabled/wordpress.conf').with(
+        :to => '/etc/apache2/sites-available/wordpress.conf'
+      )
     end
   end
 
   context 'rewrite load link' do
     it 'creates link rewrite load' do
-      expect(chef_run).to create_link('/etc/apache2/mods-enabled/rewrite.load')
+      expect(chef_run).to create_link('/etc/apache2/mods-enabled/rewrite.load').with(
+        :to => '/etc/apache2/mods-available/rewrite.load'
+      )
     end
   end
 
