@@ -7,10 +7,20 @@ describe port(80) do
   it { should be_listening }
 end
 
-describe service('apache2') do
-  it { should be_installed }
-  it { should be_enabled }
-  it { should be_running }
+family = os[:family]
+
+if family == "debian" then
+  describe service('apache2') do
+    it { should be_installed }
+    it { should be_enabled }
+    it { should be_running }
+  end
+else
+  describe service('httpd') do
+    it { should be_installed }
+    it { should be_enabled }
+    it { should be_running }
+  end
 end
 
 describe command('curl http://localhost') do
@@ -27,12 +37,12 @@ describe service('mysql') do
   it { should be_running }
 end
 
-sql = mysql_session('wordpress', 'wordpress')
+sql = mysql_session('wordpress', 'D3v@psT00ls')
 describe sql.query('SHOW DATABASES') do
   its(:stdout) { should match(/wordpress/) }
 end
 
-sql = mysql_session('wordpress', 'wordpress')
+sql = mysql_session('wordpress', 'D3v@psT00ls')
 describe sql.query('USE wordpress; SHOW TABLES;') do
   its(:stdout) { should match(/wp_posts/) }
 end

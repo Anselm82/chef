@@ -2,7 +2,7 @@ package 'httpd'
 
 service 'httpd' do
   supports :status => true
-  action :nothing
+  action :enable
 end
 
 directory "/etc/httpd/sites-available" do
