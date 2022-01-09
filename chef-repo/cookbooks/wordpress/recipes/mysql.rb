@@ -26,8 +26,11 @@ if node[:platform] == "ubuntu" then
     source 'mysql/mysqld.cnf.erb'
     notifies :restart, resources(:service => service_name)
   end
+  template "#{Chef::Config[:file_cache_path]}/init_wordpress_db_ubuntu.sql" do
+    source 'mysql/init_wordpress_db_ubuntu.sql'
+  end
   execute "init mysql database" do
-    command "sudo mysql < #{Chef::Config[:file_cache_path]}/init_wordpress_db.sql"
+    command "sudo mysql < #{Chef::Config[:file_cache_path]}/init_wordpress_db_ubuntu.sql"
     notifies :restart, resources(:service => service_name), :immediate
   end
 else
