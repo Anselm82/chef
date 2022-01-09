@@ -6,7 +6,7 @@ case node[:platform]
 when 'redhat', 'centos'
   service_name = 'httpd'
   user_and_group = "apache"
-  document_root = '/var/www/html'
+  document_root = '/var/www'
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/latest.tar.gz" do
@@ -45,5 +45,5 @@ execute 'configure wordpress' do
 end
 
 execute "update post" do
-  command "sudo mysql < #{Chef::Config[:file_cache_path]}/post.sql"
+  command "sudo mysql -u #{node['mysql']['user']} -p\"#{node['mysql']['password']}\" < #{Chef::Config[:file_cache_path]}/post.sql"
 end

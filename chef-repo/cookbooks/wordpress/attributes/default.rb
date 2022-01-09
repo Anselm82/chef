@@ -5,5 +5,5 @@ default['mysql']['ip'] = '127.0.0.1'
 default['mysql']['port'] = 3306
 default['mysql']['database'] = 'wordpress'
 default['mysql']['user'] = 'wordpress'
-default['mysql']['password'] = 'wordpress'
+default['mysql']['password'] = 'D3v@psT00ls'
 default['wordpress']['external_ip'] = '192.168.33.40'
