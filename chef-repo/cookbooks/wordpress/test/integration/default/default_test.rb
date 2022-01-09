@@ -2,10 +2,6 @@
 
 # The InSpec reference, with examples and extensive documentation, can be
 # found at https://www.inspec.io/docs/reference/resources/
-  
-describe port(80) do
-  it { should be_listening }
-end
 
 family = os[:family]
 
@@ -23,18 +19,18 @@ else
   end
 end
 
-describe command('curl http://localhost') do
-  its('stdout') { should match /.*<h1 class="site-title">DevOps<\/h1>.*/ } 
-end
-
-describe port(3306) do
-  it { should be_listening }
-end
-
 describe service('mysql') do
   it { should be_installed }
   it { should be_enabled }
   it { should be_running }
+end
+  
+describe port(80) do
+  it { should be_listening }
+end
+
+describe port(3306) do
+  it { should be_listening }
 end
 
 sql = mysql_session('wordpress', 'D3v@psT00ls')
@@ -45,6 +41,10 @@ end
 sql = mysql_session('wordpress', 'D3v@psT00ls')
 describe sql.query('USE wordpress; SHOW TABLES;') do
   its(:stdout) { should match(/wp_posts/) }
+end
+
+describe command('curl http://localhost') do
+  its('stdout') { should match /.*<h1 class="site-title">DevOps<\/h1>.*/ } 
 end
 
 describe http('192.168.33.40') do

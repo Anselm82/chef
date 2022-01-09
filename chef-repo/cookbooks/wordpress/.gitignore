@@ -5,6 +5,9 @@
 \#*#
 .*.sw[a-z]
 *.un~
+.DS_Store
+.delivery
+.vscode
 
 # Bundler
 Gemfile.lock
