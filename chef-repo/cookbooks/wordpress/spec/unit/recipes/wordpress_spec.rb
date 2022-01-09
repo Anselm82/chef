@@ -3,7 +3,12 @@ describe 'wordpress::default' do
 
   context 'create directory wordpress' do
     it 'creates directory wordpress' do
-      expect(chef_run).to create_directory('/var/www/wordpress')
+      expect(chef_run).to create_directory('/var/www/wordpress').with(
+        owner: "www-data",
+        group: "www-data",
+        recursive: true, 
+        mode: "0755"
+      )
     end
   end
 
