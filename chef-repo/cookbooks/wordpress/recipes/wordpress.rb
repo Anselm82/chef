@@ -29,13 +29,13 @@ end
 
 template "#{document_root}/wordpress/wp-config.php" do
   source 'wordpress/wp-config.php'
-  notifies :reload, resources(:service => service_name), :immediate
+  notifies :restart, resources(:service => service_name), :immediate
   notifies :restart, resources(:service => 'mysqld'), :immediate
 end
 
 execute "change owner and permissions" do
   command "sudo chown #{user_and_group}: -R #{document_root}"
-  notifies :reload, resources(:service => service_name), :immediate
+  notifies :restart, resources(:service => service_name), :immediate
   notifies :restart, resources(:service => 'mysqld'), :immediate
 end
 
