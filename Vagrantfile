@@ -12,8 +12,9 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "ubuntu/bionic64"
-
+  config.vm.box = "centos/7"
+  config.vbguest.installer_options = {enablerepo: true}
+  #config.vm.synced_folder ".", "/vagrant", :mount_options => ["dmode=777", "fmode=666"]
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
@@ -64,7 +65,7 @@ Vagrant.configure("2") do |config|
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
    config.vm.provision "shell", inline: <<-SHELL
-     apt-get update
+   yum update -y
      #curl -L https://www.opscode.com/chef/install.sh | sudo bash
 	 curl -L https://chef.io/chef/install.sh | sudo bash
    SHELL
