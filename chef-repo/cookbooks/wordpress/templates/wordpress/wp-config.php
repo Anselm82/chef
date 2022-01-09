@@ -29,7 +29,7 @@ define( 'DB_USER', '<%= node["mysql"]["user"] %>' );
 define( 'DB_PASSWORD', '<%= node["mysql"]["password"] %>' );
 
 /** MySQL hostname */
-define( 'DB_HOST', '<%= node["mysql"]["ip"] %>:<%= node["mysql"]["port"] %>' );
+define( 'DB_HOST', 'localhost:<%= node["mysql"]["port"] %>' );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -74,8 +74,8 @@ $table_prefix = 'wp_';
 define( 'WP_DEBUG', false );
 /* Add any custom values between this line and the "stop editing" line. */
 
-define( 'WP_HOME', 'http://<%= node["wordpress"]["external_ip"] %>:<%= node["wordpress"]["port"] %>' );
-define( 'WP_SITEURL', 'http://<%= node["wordpress"]["external_ip"] %>:<%= node["wordpress"]["port"] %>' );
+define( 'WP_HOME', '' );
+define( 'WP_SITEURL', '' );
 
 /* That's all, stop editing! Happy publishing. */
 
