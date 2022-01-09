@@ -3,9 +3,14 @@ apt_update 'Update the apt cache daily' do
   action :periodic
 end
 
-
-include_recipe '::apache' if node[:platform] == "ubuntu"
-include_recipe '::httpd' if node[:platform] == "centos"
-include_recipe '::mysql'
-include_recipe '::php'
-include_recipe '::wordpress'
+if node[:platform] == "ubuntu"
+  include_recipe '::apache'
+  include_recipe '::mysql'
+  include_recipe '::php'
+  include_recipe '::wordpress'
+elsif node[:platform] == "centos"
+  include_recipe '::httpd'
+  include_recipe '::mysql'
+  #include_recipe '::php'
+  #include_recipe '::wordpress'
+end

@@ -25,6 +25,15 @@ describe 'wordpress::default' do
     end
   end
 
+  context 'execute untar wordpress' do
+    it 'execute untar wordpress' do
+      expect(chef_run).to run_execute('untar wordpress').with(
+        :cwd => "/var/www/wordpress", #falla meter variable #{document_root}/wordpress
+        :command => "tar --strip-components 1 -xzf #{Chef::Config[:file_cache_path]}/latest.tar.gz"
+      )
+    end
+  end
+
 end
 
 describe 'wordpress::default' do

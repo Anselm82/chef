@@ -10,52 +10,52 @@ describe 'wordpress::default' do
   end
   context 'install php with default properties' do
     it 'php package installed' do
-        expect(chef_run).to install_package 'php-mysql'
+        expect(chef_run).to install_package('php-mysql')
       end
     end
   context 'install php with default properties' do
     it 'php package installed' do
-        expect(chef_run).to install_package 'ghostscript'
+        expect(chef_run).to install_package('ghostscript')
     end
   end
   context 'install php with default properties' do
     it 'php package installed' do
-        expect(chef_run).to install_package 'php-bcmath'
+        expect(chef_run).to install_package('php-bcmath')
     end
   end
   context 'install php with default properties' do
     it 'php package installed' do
-        expect(chef_run).to install_package 'php-curl'
+        expect(chef_run).to install_package('php-curl')
     end
   end
   context 'install php with default properties' do
     it 'php package installed' do
-        expect(chef_run).to install_package 'php-imagick'
+        expect(chef_run).to install_package('php-imagick')
     end
   end
   context 'install php with default properties' do
     it 'php package installed' do
-        expect(chef_run).to install_package 'php-intl'
+        expect(chef_run).to install_package('php-intl')
     end
   end
   context 'install php with default properties' do
     it 'php package installed' do
-        expect(chef_run).to install_package 'php-json'
+        expect(chef_run).to install_package('php-json')
     end
   end
   context 'install php with default properties' do
     it 'php package installed' do
-        expect(chef_run).to install_package 'php-mbstring'
+        expect(chef_run).to install_package('php-mbstring')
     end
   end
   context 'install php with default properties' do
     it 'php package installed' do
-        expect(chef_run).to install_package 'php-xml'
+        expect(chef_run).to install_package('php-xml')
     end
   end
   context 'install php with default properties' do
     it 'php package installed' do
-        expect(chef_run).to install_package 'php-zip'
+        expect(chef_run).to install_package('php-zip')
     end
   end
 end

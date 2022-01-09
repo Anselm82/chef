@@ -1,6 +1,6 @@
-service_name = 'mysql'
-
-if node[:platform] == "centos" then
+if node[:platform] == "ubuntu" then
+  service_name = 'mysql'
+else
   service_name = 'mysqld'
 end
 
@@ -27,6 +27,7 @@ if node[:platform] == "ubuntu" then
     source 'mysql/mysqld.cnf.erb'
     notifies :restart, resources(:service => service_name)
   end
+
 else 
   execute "update port" do
     command "echo \"port = #{node['mysql']['port']}\" >> /etc/my.cnf.d/mysql-server.conf"
