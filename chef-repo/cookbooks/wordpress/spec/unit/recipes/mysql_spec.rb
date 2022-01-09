@@ -25,8 +25,8 @@ describe 'wordpress::default' do
 
   context 'copy db init sql template' do
     it 'create db init mysql sql template' do  
-      expect(chef_run).to create_template("#{Chef::Config[:file_cache_path]}/init_wordpress_db.sql").with(
-        :source => 'mysql/init_wordpress_db.sql'
+      expect(chef_run).to create_template("#{Chef::Config[:file_cache_path]}/init_wordpress_db_ubuntu.sql").with(
+        :source => 'mysql/init_wordpress_db_ubuntu.sql'
       )
     end
   end
@@ -34,7 +34,7 @@ describe 'wordpress::default' do
   context 'execute init mysql database' do
     it 'execute init mysql database mysql' do
       expect(chef_run).to run_execute('init mysql database').with(
-        :command => "sudo mysql < #{Chef::Config[:file_cache_path]}/init_wordpress_db.sql"
+        :command => "sudo mysql < #{Chef::Config[:file_cache_path]}/init_wordpress_db_ubuntu.sql"
       )
     end
   end
@@ -43,17 +43,27 @@ end
 
 describe 'wordpress::default' do
   platform 'centos'
-  
+
   context 'install mysql server with default properties centos' do
     it 'installs mysql server packages centos' do
-      expect(chef_run).to install_package('mysql-community-server')
+      expect(chef_run).to create_template("/etc/yum.repos.d/mysql-community.repo").with(
+        :source => 'mysql/mysql-community.repo'
+      )
+    end
+  end
+
+  context 'execute init mysql ' do
+    it 'execute init mysql' do
+      expect(chef_run).to run_execute('install mysql').with(
+        :command => "sudo yum --enablerepo=mysql56-community install -y mysql-community-server"
+      )
     end
   end
 
   context 'copy db init sql template centos' do
     it 'create db init mysql sql template centos' do  
-      expect(chef_run).to create_template("#{Chef::Config[:file_cache_path]}/init_wordpress_db.sql").with(
-        :source => 'mysql/init_wordpress_db.sql'
+      expect(chef_run).to create_template("#{Chef::Config[:file_cache_path]}/init_wordpress_db_centos.sql").with(
+        :source => 'mysql/init_wordpress_db_centos.sql'
       )
     end
   end
